@@ -20,9 +20,30 @@ function onSubmit(e) {
     emailInput.value = '';
   }
 }
+// function savaData(){
+// let getname = document.getElementById('name').value
+// let getemail = document.getElementById('email').value
+// localStorage.setItem("name", getname);
+// localStorage.setItem("email", getemail);
+// }
+
 function savaData(){
-let getname = document.getElementById('name').value
-let getemail = document.getElementById('email').value
-localStorage.setItem("name", getname);
-localStorage.setItem("email", getemail);
+let getname = document.getElementById('name').value;
+let getemail = document.getElementById('email').value;
+
+let userRecord = new Array();
+userRecord = JSON.parse(localStorage.getItem('users'))? JSON.parse(localStorage.getItem('users')):[]
+
+if(userRecord.some((v)=>{return v.email == getemail})){
+  alert("email already exists")
+}else{
+  userRecord.push({
+    "name": getname,
+    "email":getemail
+  })
+
+}
+
+localStorage.setItem("users", JSON.stringify(userRecord));
+
 }
